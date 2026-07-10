@@ -463,6 +463,94 @@ footer {
 .disclaimer p + p { margin-top: .6rem; }
 .copyright { margin-top: 1.5rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: .78rem; color: rgba(255,255,255,.55); }
 
+/* ============================================================
+   GLASS MODAL — used for "Learn more" and CTA links
+   ============================================================ */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    background: rgba(15, 14, 14, 0.6);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility .3s ease;
+}
+.modal-overlay.is-open { opacity: 1; visibility: visible; }
+.modal-panel {
+    position: relative;
+    width: 100%;
+    max-width: 620px;
+    max-height: 82vh;
+    overflow-y: auto;
+    background: rgba(24, 22, 22, 0.62);
+    border: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: blur(1.75rem);
+    backdrop-filter: blur(1.75rem);
+    border-radius: var(--radius);
+    padding: 3rem 2.75rem 2.75rem;
+    color: rgba(255,255,255,.88);
+    transform: translateY(24px) scale(.97);
+    transition: transform .35s cubic-bezier(.22,.8,.28,1);
+    box-shadow: 0 40px 90px rgba(0,0,0,.5);
+}
+.modal-overlay.is-open .modal-panel { transform: translateY(0) scale(1); }
+.modal-tag {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: var(--white);
+    padding: .32rem .85rem;
+    border-radius: 999px;
+    margin-bottom: 1.1rem;
+}
+.modal-panel h3 { color: var(--white); font-size: 1.7rem; margin-bottom: 1.2rem; }
+.modal-body p { font-size: .96rem; margin-bottom: 1.1rem; }
+.modal-body p:last-child { margin-bottom: 0; }
+.modal-body strong { color: var(--white); }
+.modal-body a { color: var(--accent-light); text-decoration: underline; text-underline-offset: 2px; }
+.modal-body a.btn { color: var(--white); text-decoration: none; }
+.modal-body ul { margin: 0 0 1.1rem; padding: 0; list-style: none; }
+.modal-body ul li { position: relative; padding-left: 1.4rem; margin-bottom: .6rem; font-size: .94rem; }
+.modal-body ul li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: .55rem;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+.modal-cta { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.16); }
+.modal-close {
+    position: absolute;
+    top: 1.25rem; right: 1.25rem;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.25);
+    background: rgba(255,255,255,.08);
+    color: var(--white);
+    font-size: 1.1rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+}
+.modal-close:hover { background: rgba(255,255,255,.18); transform: rotate(90deg); }
+@media (max-width: 640px) {
+    .modal-panel { padding: 2.25rem 1.75rem 2rem; max-height: 88vh; }
+    .modal-panel h3 { font-size: 1.4rem; }
+}
+
 @media (max-width: 1024px) {
     .banner-glass__main { grid-template-columns: 1fr; gap: 3rem; }
     .hero-panel { max-width: 34rem; }
@@ -501,7 +589,7 @@ footer {
             <a href="#contact">Contact</a>
         </nav>
         <div class="header-cta">
-            <a href="#" class="btn btn--accent">Call Now</a>
+            <a href="#" class="btn btn--accent" data-modal="contact">Call Now</a>
         </div>
         <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
     </div>
@@ -510,7 +598,7 @@ footer {
         <a href="#academy">Academy</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
-        <a href="#">Call Now</a>
+        <a href="#" data-modal="contact">Call Now</a>
     </nav>
 </header>
 
@@ -527,7 +615,7 @@ footer {
             <p class="lede">CFO services, proactive tax planning, and expert resolution for growing businesses. Strategic partnerships that deliver.</p>
             <div class="hero-actions">
                 <a href="#services" class="btn btn--accent">Explore Services <span class="arrow">&rarr;</span></a>
-                <a href="#" class="btn btn--glass">Schedule Consultation</a>
+                <a href="#" class="btn btn--glass" data-modal="contact">Schedule Consultation</a>
             </div>
         </div>
 
@@ -570,7 +658,7 @@ footer {
                 </div>
                 <h3>Executive Strategy</h3>
                 <p>High-level financial guidance aligned with your business roadmap. Strategic planning that drives sustainable growth.</p>
-                <a href="#" class="text-link">Learn more</a>
+                <a href="#" class="text-link" data-modal="exec-strategy">Learn more</a>
             </div>
 
             <div class="service-card glass--light">
@@ -579,7 +667,7 @@ footer {
                 </div>
                 <h3>CFO Services</h3>
                 <p>Expert financial management for businesses ready to scale. Full CFO-level strategy without the overhead.</p>
-                <a href="#" class="text-link">Learn more</a>
+                <a href="#" class="text-link" data-modal="cfo-services">Learn more</a>
             </div>
 
             <div class="service-card glass--light">
@@ -588,7 +676,7 @@ footer {
                 </div>
                 <h3>Proactive Savings</h3>
                 <p>Year-round tax optimization keeping more in your pocket. Planned before year-end, not after.</p>
-                <a href="#" class="text-link">Learn more</a>
+                <a href="#" class="text-link" data-modal="proactive-savings">Learn more</a>
             </div>
 
             <div class="service-card glass--light">
@@ -597,7 +685,7 @@ footer {
                 </div>
                 <h3>Tax Planning</h3>
                 <p>Strategic planning that minimizes liability and maximizes opportunities. Proactive, not reactive.</p>
-                <a href="#" class="text-link">Learn more</a>
+                <a href="#" class="text-link" data-modal="tax-planning">Learn more</a>
             </div>
 
             <div class="service-card glass--light">
@@ -606,7 +694,7 @@ footer {
                 </div>
                 <h3>Asset Protection</h3>
                 <p>Expert strategies to shield your wealth. Structures designed to protect what you've built.</p>
-                <a href="#" class="text-link">Learn more</a>
+                <a href="#" class="text-link" data-modal="asset-protection">Learn more</a>
             </div>
 
             <div class="service-card glass--light">
@@ -615,7 +703,7 @@ footer {
                 </div>
                 <h3>Tax Resolution</h3>
                 <p>IRS representation and expert advocacy. Navigate compliance with confidence and expert support.</p>
-                <a href="#" class="text-link">Learn more</a>
+                <a href="#" class="text-link" data-modal="tax-resolution">Learn more</a>
             </div>
 
             <div class="service-card glass--light">
@@ -624,7 +712,7 @@ footer {
                 </div>
                 <h3>Compliance & Prep</h3>
                 <p>Timely, accurate tax preparation and bookkeeping. Audit-ready year-round, every year.</p>
-                <a href="#" class="text-link">Learn more</a>
+                <a href="#" class="text-link" data-modal="compliance-prep">Learn more</a>
             </div>
         </div>
     </div>
@@ -651,6 +739,9 @@ footer {
                 <div class="label">Strategic Focus</div>
             </div>
         </div>
+        <p style="margin-top: 2.5rem;">
+            <a href="#" class="text-link" data-modal="about" style="color: var(--white); border-bottom-color: var(--accent-light);">Meet the Team</a>
+        </p>
     </div>
 </section>
 
@@ -726,7 +817,7 @@ footer {
             <h2>Ready to transform your financial strategy?</h2>
             <p>Speak with a Taxulo strategist. Schedule a consultation to explore how we can help your business.</p>
         </div>
-        <a href="#" class="btn btn--dark">Schedule a Consultation <span class="arrow">&rarr;</span></a>
+        <a href="#" class="btn btn--dark" data-modal="contact">Schedule a Consultation <span class="arrow">&rarr;</span></a>
     </div>
 </section>
 
@@ -740,10 +831,13 @@ footer {
             <div class="footer-col">
                 <h5>Services</h5>
                 <ul>
-                    <li><a href="#services">Executive Strategy</a></li>
-                    <li><a href="#services">CFO Services</a></li>
-                    <li><a href="#services">Tax Planning</a></li>
-                    <li><a href="#services">Asset Protection</a></li>
+                    <li><a href="#" data-modal="exec-strategy">Executive Strategy</a></li>
+                    <li><a href="#" data-modal="cfo-services">CFO Services</a></li>
+                    <li><a href="#" data-modal="proactive-savings">Proactive Savings</a></li>
+                    <li><a href="#" data-modal="tax-planning">Tax Planning</a></li>
+                    <li><a href="#" data-modal="asset-protection">Asset Protection</a></li>
+                    <li><a href="#" data-modal="tax-resolution">Tax Resolution</a></li>
+                    <li><a href="#" data-modal="compliance-prep">Compliance &amp; Prep</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -756,12 +850,12 @@ footer {
                 </ul>
             </div>
             <div class="footer-col">
-                <h5>Contact</h5>
+                <h5>Company</h5>
                 <ul>
-                    <li><a href="#">855-482-9856</a></li>
-                    <li><a href="#">Schedule Call</a></li>
-                    <li><a href="#">Client Portal</a></li>
-                    <li><a href="#">Support</a></li>
+                    <li><a href="#" data-modal="about">Who We Are</a></li>
+                    <li><a href="#" data-modal="industries">Industries We Serve</a></li>
+                    <li><a href="#" data-modal="contact">855-482-9856</a></li>
+                    <li><a href="#" data-modal="contact">Schedule a Call</a></li>
                 </ul>
             </div>
         </div>
@@ -778,6 +872,15 @@ footer {
     </div>
 </footer>
 
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-panel" id="modalPanel">
+        <button class="modal-close" id="modalClose" aria-label="Close dialog">&times;</button>
+        <span class="modal-tag" id="modalTag"></span>
+        <h3 id="modalTitle"></h3>
+        <div class="modal-body" id="modalBody"></div>
+    </div>
+</div>
+
 <script>
 const header = document.getElementById('siteHeader');
 window.addEventListener('scroll', () => {
@@ -791,15 +894,162 @@ navToggle.addEventListener('click', () => {
     navToggle.setAttribute('aria-expanded', open);
 });
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+document.querySelectorAll('a[href^="#"]:not([data-modal])').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        const target = document.querySelector(this.getAttribute('href'));
+        const href = this.getAttribute('href');
+        if (!href || href === '#') return;
+        const target = document.querySelector(href);
         if (!target) return;
         e.preventDefault();
         mobileMenu.classList.remove('is-open');
         navToggle.setAttribute('aria-expanded', 'false');
         target.scrollIntoView({ behavior: 'smooth' });
     });
+});
+
+// ---------- Glass modal system ----------
+const modalContent = {
+    'exec-strategy': {
+        tag: 'Core Pillar · 01',
+        title: 'Executive Strategy',
+        body: `
+            <p>Most financial advice comes from people who've never sat in the CFO's chair. Ours does &mdash; our team brings real operating experience from inside growing companies, not just outside commentary.</p>
+            <p>We translate that experience into a clear roadmap: board-ready reporting, cash flow visibility, and decisions grounded in how your business actually runs day to day.</p>
+            <ul>
+                <li>Financial roadmapping tied to your growth goals</li>
+                <li>Board and investor-ready reporting</li>
+                <li>Cash flow forecasting and scenario planning</li>
+            </ul>
+        `
+    },
+    'cfo-services': {
+        tag: 'Core Pillar · 02',
+        title: 'CFO Services',
+        body: `
+            <p>Full-time CFOs are expensive, and most growing businesses don't need one five days a week. We bring the same caliber of financial leadership on a schedule that fits your stage of growth.</p>
+            <p>From financial systems to forecasting, we manage the strategic side of your finances so you can stay focused on running the business.</p>
+        `
+    },
+    'proactive-savings': {
+        tag: 'Core Pillar · 03',
+        title: 'Proactive Savings',
+        body: `
+            <p>By the time tax season arrives, most savings opportunities have already closed. We work ahead of the calendar, identifying legal ways to reduce your liability while there's still time to act.</p>
+            <p>Planning reviewed regularly through the year consistently outperforms a once-a-year scramble in April.</p>
+        `
+    },
+    'tax-planning': {
+        tag: 'Core Pillar · 04',
+        title: 'Tax Planning',
+        body: `
+            <p>Tax planning isn't a single meeting in March &mdash; it's a strategy that evolves alongside your business. We build a plan tied to your broader financial picture, then revisit it as your revenue and goals change.</p>
+            <p>The result: fewer surprises, and a tax position working in your favor year-round, not just at filing time.</p>
+        `
+    },
+    'asset-protection': {
+        tag: 'Core Pillar · 05',
+        title: 'Asset Protection',
+        body: `
+            <p>Growth creates exposure. The right entity structure, timing, and planning can shield what you've built from unnecessary risk, without adding complexity you don't need.</p>
+            <p>We design protection strategies around your actual risk profile, not a one-size-fits-all template.</p>
+        `
+    },
+    'tax-resolution': {
+        tag: 'Core Pillar · 06',
+        title: 'Tax Resolution',
+        body: `
+            <p>An IRS or state notice doesn't have to derail your business. We step in as your advocate, communicating directly with tax agencies to resolve outstanding issues and negotiate a path forward.</p>
+            <p>Our goal: close the issue, protect your standing, and get you back to running your business with confidence.</p>
+        `
+    },
+    'compliance-prep': {
+        tag: 'Core Pillar · 07',
+        title: 'Compliance & Prep',
+        body: `
+            <p>Every strategy above depends on one thing: accurate, on-time compliance. We handle tax preparation and bookkeeping with the rigor of a team that's seen the other side of an audit.</p>
+            <p>Clean books, filed on time, every year &mdash; the foundation the rest of your financial strategy stands on.</p>
+        `
+    },
+    'about': {
+        tag: 'About Taxulo',
+        title: 'Who We Are',
+        body: `
+            <p>Taxulo was built on a simple belief: mid-sized business owners deserve the same caliber of financial expertise usually reserved for large enterprises.</p>
+            <p>The firm is led by <strong>Norbie Gaerlan, CPA</strong>, who brings 25+ years in accounting and tax and has served as CFO for multiple California companies. He works alongside <strong>Tracy Lee Wood</strong>, the firm's tax attorney, who brings 22 years of legal experience in tax strategy, audits, and compliance.</p>
+            <p>What sets the team apart is operating experience &mdash; former CFOs and Controllers who've lived the realities of cash flow, reporting, and compliance from the inside, not just advised on them from a distance.</p>
+        `
+    },
+    'industries': {
+        tag: 'Who We Work With',
+        title: 'Industries We Serve',
+        body: `
+            <p>Every industry runs on different financial rhythms. Our approach adapts to yours.</p>
+            <ul>
+                <li><strong>Real Estate</strong> &mdash; Financial management built to sharpen profitability and support confident investment decisions.</li>
+                <li><strong>Healthcare &amp; Medical</strong> &mdash; Compliance and recordkeeping support that keeps practices audit-ready and credible.</li>
+                <li><strong>Technology</strong> &mdash; Tax and financial strategy that stays out of the way of innovation.</li>
+                <li><strong>Contractors</strong> &mdash; Financial planning and budgeting built around the realities of construction work.</li>
+                <li><strong>Small to Medium Businesses</strong> &mdash; Ongoing reviews and compliance guidance that strengthens operations over time.</li>
+                <li><strong>Nonprofits</strong> &mdash; IRS compliance support that helps organizations protect their tax-exempt status and stay focused on mission.</li>
+            </ul>
+        `
+    },
+    'contact': {
+        tag: "Let's Talk",
+        title: 'Schedule a Free Strategy Session',
+        body: `
+            <p>Ready to see what a proactive financial strategy could do for your business? Reach out and we'll set up a free consultation to talk through where you are and where you want to go.</p>
+            <p><strong>Call us:</strong> <a href="tel:+18554829856">855-482-9856</a></p>
+            <p><strong>Prefer email?</strong> Send us a note and a strategist will follow up within one business day.</p>
+            <div class="modal-cta">
+                <a href="#" class="btn btn--accent">Book Your Free Session <span class="arrow">&rarr;</span></a>
+            </div>
+        `
+    }
+};
+
+const modalOverlay = document.getElementById('modalOverlay');
+const modalTag = document.getElementById('modalTag');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+const modalClose = document.getElementById('modalClose');
+let lastFocusedEl = null;
+
+function openModal(key) {
+    const data = modalContent[key];
+    if (!data) return;
+    modalTag.textContent = data.tag;
+    modalTitle.textContent = data.title;
+    modalBody.innerHTML = data.body;
+    lastFocusedEl = document.activeElement;
+    mobileMenu.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    modalOverlay.classList.add('is-open');
+    modalOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    modalClose.focus();
+}
+
+function closeModal() {
+    modalOverlay.classList.remove('is-open');
+    modalOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastFocusedEl) lastFocusedEl.focus();
+}
+
+document.querySelectorAll('[data-modal]').forEach(el => {
+    el.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal(el.getAttribute('data-modal'));
+    });
+});
+
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('is-open')) closeModal();
 });
 </script>
 </body>
