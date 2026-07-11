@@ -256,6 +256,70 @@ header.is-scrolled .header-inner {
     margin-bottom: 2.25rem;
 }
 .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* trust strip — glass credibility bar pinned above the fold,
+   like the original site's badge row */
+.trust-strip {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    z-index: 4;
+    background: var(--glass-bg);
+    border-top: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: blur(1rem);
+    backdrop-filter: blur(1rem);
+}
+.trust-strip .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem 2.5rem;
+    flex-wrap: wrap;
+    padding-top: 1.1rem;
+    padding-bottom: 1.1rem;
+}
+.trust-strip .strip-label {
+    font-size: .7rem;
+    font-weight: 900;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.6);
+}
+.trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: .9rem;
+    transition: transform .25s ease;
+}
+.trust-item:hover { transform: translateY(-2px); }
+/* light-grey plate so the pale/white badge artwork stays readable on glass */
+.trust-item .badge-plate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(214, 212, 209, 0.92);
+    border-radius: 10px;
+    padding: .45rem .8rem;
+}
+.trust-item .badge-plate img { height: 28px; width: auto; }
+.trust-item .trust-label {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+}
+.trust-item .trust-label strong {
+    font-size: .74rem;
+    font-weight: 900;
+    letter-spacing: .05em;
+    color: var(--white);
+    text-transform: uppercase;
+}
+.trust-item .trust-label span { font-size: .7rem; color: rgba(255,255,255,.6); }
+.trust-item .stars { color: #f5c542; font-size: .72rem; letter-spacing: .08em; }
+@media (max-width: 1024px) {
+    .trust-strip { position: static; }
+    .trust-strip .wrap { justify-content: center; }
+    .trust-strip .strip-label { width: 100%; text-align: center; }
+}
 .hero-panel {
     border-radius: var(--radius);
     padding: 2.25rem 2.25rem 2rem;
@@ -292,21 +356,6 @@ header.is-scrolled .header-inner {
     font-size: 1.6rem;
     color: var(--accent-light);
 }
-.scroll-hint {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 4;
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--white);
-    animation: bob 2.4s ease-in-out infinite;
-}
-@keyframes bob { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
 
 .section { padding: var(--block-gap) 0; position: relative; }
 .section--white { background: var(--white); }
@@ -355,7 +404,16 @@ header.is-scrolled .header-inner {
 .service-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(45,45,45,.12); }
 .service-card:hover::before { transform: scaleX(1); }
 .service-icon { width: 52px; height: 52px; border-radius: 50%; background: var(--ink); color: var(--accent-light); display: flex; align-items: center; justify-content: center; margin-bottom: 1.4rem; }
-.service-card h3 { font-size: 1.3rem; margin-bottom: .6rem; }
+.service-card h3 { font-size: 1.3rem; margin-bottom: .35rem; }
+.service-card .benefit {
+    font-family: var(--sans);
+    font-size: .8rem;
+    font-weight: 900;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin-bottom: .6rem;
+}
 .service-card p { font-size: .92rem; margin-bottom: 1.4rem; }
 
 .text-link { font-size: .82rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); border-bottom: 2px solid var(--accent); padding-bottom: .2rem; }
@@ -529,6 +587,40 @@ footer {
     background: var(--accent);
 }
 .modal-cta { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.16); }
+
+/* intake form inside the glass modal */
+.modal-form { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; margin-top: 1.5rem; }
+.modal-form .field--full { grid-column: 1 / -1; }
+.modal-form label {
+    display: block;
+    font-size: .68rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.65);
+    margin-bottom: .35rem;
+}
+.modal-form input,
+.modal-form select {
+    width: 100%;
+    font-family: var(--sans);
+    font-size: .92rem;
+    color: var(--white);
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 10px;
+    padding: .7rem .9rem;
+    outline: none;
+    transition: border-color .2s ease, background .2s ease;
+}
+.modal-form input::placeholder { color: rgba(255,255,255,.35); }
+.modal-form select { appearance: none; -webkit-appearance: none; }
+.modal-form select option { background: #2d2d2d; color: #fff; }
+.modal-form input:focus,
+.modal-form select:focus { border-color: var(--accent-light); background: rgba(255,255,255,.12); }
+.modal-form button { grid-column: 1 / -1; justify-content: center; margin-top: .3rem; }
+.modal-form .form-note { grid-column: 1 / -1; font-size: .75rem; color: rgba(255,255,255,.5); text-align: center; margin: 0; }
+@media (max-width: 540px) { .modal-form { grid-template-columns: 1fr; } }
 .modal-close {
     position: absolute;
     top: 1.25rem; right: 1.25rem;
@@ -555,7 +647,8 @@ footer {
     .banner-glass__main { grid-template-columns: 1fr; gap: 3rem; }
     .hero-panel { max-width: 34rem; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
-    .banner-glass { min-height: 640px; height: auto; padding-bottom: 3rem; }
+    .banner-glass { min-height: 640px; height: auto; padding-bottom: 0; flex-direction: column; justify-content: center; }
+    .trust-strip { width: 100%; margin-top: 3rem; }
 }
 @media (max-width: 860px) {
     .main-nav { display: none; }
@@ -571,7 +664,6 @@ footer {
 }
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .scroll-hint { animation: none; }
 }
 </style>
 </head>
@@ -589,7 +681,7 @@ footer {
             <a href="#contact">Contact</a>
         </nav>
         <div class="header-cta">
-            <a href="#" class="btn btn--accent" data-modal="contact">Call Now</a>
+            <a href="#" class="btn btn--accent" data-modal="contact">Book Free Session</a>
         </div>
         <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
     </div>
@@ -598,7 +690,7 @@ footer {
         <a href="#academy">Academy</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
-        <a href="#" data-modal="contact">Call Now</a>
+        <a href="#" data-modal="contact">Book Free Session</a>
     </nav>
 </header>
 
@@ -614,8 +706,8 @@ footer {
             <h1>Executive financial guidance for <em>strategic</em> growth</h1>
             <p class="lede">CFO services, proactive tax planning, and expert resolution for growing businesses. Strategic partnerships that deliver.</p>
             <div class="hero-actions">
-                <a href="#services" class="btn btn--accent">Explore Services <span class="arrow">&rarr;</span></a>
-                <a href="#" class="btn btn--glass" data-modal="contact">Schedule Consultation</a>
+                <a href="#" class="btn btn--accent" data-modal="contact">Book Your Free Strategy Session <span class="arrow">&rarr;</span></a>
+                <a href="#services" class="btn btn--glass">Explore Services</a>
             </div>
         </div>
 
@@ -636,9 +728,24 @@ footer {
         </div>
     </div>
 
-    <a href="#services" class="scroll-hint glass" aria-label="Scroll to content">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-    </a>
+    <!-- credibility strip pinned above the fold, like the original site -->
+    <div class="trust-strip">
+        <div class="wrap">
+            <span class="strip-label">Accredited &amp; Reviewed</span>
+            <a href="https://www.bbb.org/us/ca/san-jose/profile/cpa/taxulo-1216-1266274" target="_blank" rel="noopener" class="trust-item">
+                <span class="badge-plate"><img src="badge_bbb.avif" alt="Better Business Bureau Accredited Business seal"></span>
+                <span class="trust-label"><strong>BBB A+ Rated</strong><span>Accredited Since 2019</span></span>
+            </a>
+            <a href="https://share.google/yuQCKkDkcAOaiQBTO" target="_blank" rel="noopener" class="trust-item">
+                <span class="badge-plate"><img src="badge_google.avif" alt="Google Business Profile for Taxulo"></span>
+                <span class="trust-label"><strong>5.0 <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></strong><span>Google Reviews</span></span>
+            </a>
+            <a href="https://www.bark.com/en/us/company/taxulo-tax-u-low---a-tax-and-an-accounting-co/qkl8B/?show_reviews=true" target="_blank" rel="noopener" class="trust-item">
+                <span class="badge-plate"><img src="badge_bark.avif" alt="Bark reviews for Taxulo"></span>
+                <span class="trust-label"><strong>Top Rated <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span></strong><span>Verified on Bark</span></span>
+            </a>
+        </div>
+    </div>
 </section>
 
 <section id="services" class="section section--white section--liquid">
@@ -657,7 +764,8 @@ footer {
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
                 </div>
                 <h3>Executive Strategy</h3>
-                <p>High-level financial guidance aligned with your business roadmap. Strategic planning that drives sustainable growth.</p>
+                <p class="benefit">See around corners before your competitors do</p>
+                <p>Board-level financial guidance from executives who've run companies like yours &mdash; so every decision is made with the full picture.</p>
                 <a href="#" class="text-link" data-modal="exec-strategy">Learn more</a>
             </div>
 
@@ -666,7 +774,8 @@ footer {
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-6 3 4 5-8"/></svg>
                 </div>
                 <h3>CFO Services</h3>
-                <p>Expert financial management for businesses ready to scale. Full CFO-level strategy without the overhead.</p>
+                <p class="benefit">Executive finance leadership, without the executive salary</p>
+                <p>Get the strategy, forecasting, and financial control of a full-time CFO at a fraction of the cost of the hire.</p>
                 <a href="#" class="text-link" data-modal="cfo-services">Learn more</a>
             </div>
 
@@ -675,7 +784,8 @@ footer {
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4l2-4z"/></svg>
                 </div>
                 <h3>Proactive Savings</h3>
-                <p>Year-round tax optimization keeping more in your pocket. Planned before year-end, not after.</p>
+                <p class="benefit">Keep more of every dollar you earn</p>
+                <p>Savings opportunities close before tax season opens. We plan ahead of the calendar so the money stays in your business.</p>
                 <a href="#" class="text-link" data-modal="proactive-savings">Learn more</a>
             </div>
 
@@ -684,7 +794,8 @@ footer {
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
                 </div>
                 <h3>Tax Planning</h3>
-                <p>Strategic planning that minimizes liability and maximizes opportunities. Proactive, not reactive.</p>
+                <p class="benefit">Stop overpaying the IRS</p>
+                <p>A year-round strategy tied to your goals &mdash; fewer surprises in April, and a tax position that works in your favor all year.</p>
                 <a href="#" class="text-link" data-modal="tax-planning">Learn more</a>
             </div>
 
@@ -693,7 +804,8 @@ footer {
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 6h18v12H3z"/></svg>
                 </div>
                 <h3>Asset Protection</h3>
-                <p>Expert strategies to shield your wealth. Structures designed to protect what you've built.</p>
+                <p class="benefit">Shield what you've built from risk</p>
+                <p>The right structures and timing protect your wealth from liability without adding complexity you don't need.</p>
                 <a href="#" class="text-link" data-modal="asset-protection">Learn more</a>
             </div>
 
@@ -702,7 +814,8 @@ footer {
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
                 <h3>Tax Resolution</h3>
-                <p>IRS representation and expert advocacy. Navigate compliance with confidence and expert support.</p>
+                <p class="benefit">Protect your assets from the IRS</p>
+                <p>An IRS notice doesn't have to derail your business. We advocate directly with tax agencies and negotiate your path forward.</p>
                 <a href="#" class="text-link" data-modal="tax-resolution">Learn more</a>
             </div>
 
@@ -711,7 +824,8 @@ footer {
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
                 </div>
                 <h3>Compliance & Prep</h3>
-                <p>Timely, accurate tax preparation and bookkeeping. Audit-ready year-round, every year.</p>
+                <p class="benefit">Audit-ready books, zero surprises</p>
+                <p>Accurate, on-time preparation and bookkeeping &mdash; the foundation every other strategy stands on.</p>
                 <a href="#" class="text-link" data-modal="compliance-prep">Learn more</a>
             </div>
         </div>
@@ -995,15 +1109,41 @@ const modalContent = {
         `
     },
     'contact': {
-        tag: "Let's Talk",
-        title: 'Schedule a Free Strategy Session',
+        tag: 'Free · No Obligation',
+        title: 'Book Your Free Strategy Session',
         body: `
-            <p>Ready to see what a proactive financial strategy could do for your business? Reach out and we'll set up a free consultation to talk through where you are and where you want to go.</p>
-            <p><strong>Call us:</strong> <a href="tel:+18554829856">855-482-9856</a></p>
-            <p><strong>Prefer email?</strong> Send us a note and a strategist will follow up within one business day.</p>
-            <div class="modal-cta">
-                <a href="#" class="btn btn--accent">Book Your Free Session <span class="arrow">&rarr;</span></a>
-            </div>
+            <p>Tell us a little about your business and a Taxulo strategist will follow up within <strong>one business day</strong>. Prefer to talk now? Call <a href="tel:+18554829856">855-4-TAXULO (855-482-9856)</a>.</p>
+            <form class="modal-form" id="intakeForm">
+                <div>
+                    <label for="f-name">Your Name</label>
+                    <input type="text" id="f-name" name="name" placeholder="Jane Smith" required>
+                </div>
+                <div>
+                    <label for="f-company">Company</label>
+                    <input type="text" id="f-company" name="company" placeholder="Acme LLC">
+                </div>
+                <div>
+                    <label for="f-email">Email</label>
+                    <input type="email" id="f-email" name="email" placeholder="jane@company.com" required>
+                </div>
+                <div>
+                    <label for="f-phone">Phone</label>
+                    <input type="tel" id="f-phone" name="phone" placeholder="(555) 123-4567">
+                </div>
+                <div class="field--full">
+                    <label for="f-need">What do you need help with?</label>
+                    <select id="f-need" name="need">
+                        <option>CFO Services / Executive Strategy</option>
+                        <option>Tax Planning &amp; Proactive Savings</option>
+                        <option>Tax Resolution (IRS / State)</option>
+                        <option>Tax Preparation &amp; Bookkeeping</option>
+                        <option>Asset Protection</option>
+                        <option>Something else</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn--accent">Request My Free Session <span class="arrow">&rarr;</span></button>
+                <p class="form-note">No cost, no obligation. Your information stays private.</p>
+            </form>
         `
     }
 };
@@ -1050,6 +1190,27 @@ modalOverlay.addEventListener('click', (e) => {
 });
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modalOverlay.classList.contains('is-open')) closeModal();
+});
+
+// intake form: no backend on a static page, so compose the request
+// as a pre-filled email to the firm and show confirmation
+modalBody.addEventListener('submit', (e) => {
+    if (e.target.id !== 'intakeForm') return;
+    e.preventDefault();
+    const f = e.target;
+    const subject = encodeURIComponent('Free Strategy Session Request — ' + f.name.value);
+    const body = encodeURIComponent(
+        'Name: ' + f.name.value +
+        '\nCompany: ' + (f.company.value || '—') +
+        '\nEmail: ' + f.email.value +
+        '\nPhone: ' + (f.phone.value || '—') +
+        '\nNeeds help with: ' + f.need.value +
+        '\n\nRequested via taxulo.com'
+    );
+    window.location.href = 'mailto:info@taxulo.com?subject=' + subject + '&body=' + body;
+    f.innerHTML = '<p class="form-note" style="font-size:.95rem;color:rgba(255,255,255,.85);text-align:left;">' +
+        '<strong style="color:#fff;">Almost done!</strong> Your email app just opened with your request pre-filled &mdash; hit send and a strategist will reply within one business day.<br><br>' +
+        'If it didn\'t open, email <a href="mailto:info@taxulo.com">info@taxulo.com</a> or call <a href="tel:+18554829856">855-482-9856</a>.</p>';
 });
 </script>
 </body>
