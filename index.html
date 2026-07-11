@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   TAXULO — liquid glass design system adopted from raywhite.com
+   TAXULO - liquid glass design system adopted from raywhite.com
    Executive CFO services & tax planning for businesses.
    Serif display (Playfair) + Lato, cream surfaces, red accent.
    ============================================================ */
@@ -257,7 +257,7 @@ header.is-scrolled .header-inner {
 }
 .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-/* trust strip — glass credibility bar pinned above the fold,
+/* trust strip - glass credibility bar pinned above the fold,
    like the original site's badge row */
 .trust-strip {
     position: absolute;
@@ -526,7 +526,7 @@ footer {
 .copyright { margin-top: 1.5rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: .78rem; color: rgba(255,255,255,.55); }
 
 /* ============================================================
-   GLASS MODAL — used for "Learn more" and CTA links
+   GLASS MODAL - used for "Learn more" and CTA links
    ============================================================ */
 .modal-overlay {
     position: fixed;
@@ -666,8 +666,8 @@ footer {
     .panel-stats { flex-direction: column; gap: 1rem; }
     .header-inner { padding-left: 1.1rem; }
     /* one shared grid (not one grid per item) so column widths sync
-       across rows — images right-aligned in col 1, text left-aligned
-       in col 2 — and the whole block sizes to its content so it can
+       across rows - images right-aligned in col 1, text left-aligned
+       in col 2 - and the whole block sizes to its content so it can
        be centered with even margins instead of stretching edge-to-edge */
     .trust-strip .wrap {
         display: grid;
@@ -1218,12 +1218,12 @@ modalBody.addEventListener('submit', (e) => {
     if (e.target.id !== 'intakeForm') return;
     e.preventDefault();
     const f = e.target;
-    const subject = encodeURIComponent('Free Strategy Session Request — ' + f.name.value);
+    const subject = encodeURIComponent('Free Strategy Session Request - ' + f.name.value);
     const body = encodeURIComponent(
         'Name: ' + f.name.value +
-        '\nCompany: ' + (f.company.value || '—') +
+        '\nCompany: ' + (f.company.value || '-') +
         '\nEmail: ' + f.email.value +
-        '\nPhone: ' + (f.phone.value || '—') +
+        '\nPhone: ' + (f.phone.value || '-') +
         '\nNeeds help with: ' + f.need.value +
         '\n\nRequested via taxulo.com'
     );
